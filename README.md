@@ -55,11 +55,9 @@ Key visualizations include:
    ```bash
    git clone https://github.com/shashank274/CreditCard_Fraud_Detection.git
 ## Install the required Libraries:
-pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
 
-## Run the script
-python fraud_detection.py
 
-## Requirements
-- Python 3.7+
-- Libraries: numpy, pandas, scikit-learn, matplotlib
+
+
