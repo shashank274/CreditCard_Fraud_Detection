@@ -1,63 +1,55 @@
 # Credit Card Fraud Detection
 
-## Overview
-This repository contains a machine learning project aimed at detecting fraudulent credit card transactions. The dataset used is highly imbalanced, with legitimate transactions far outnumbering fraudulent ones. The project implements logistic regression and evaluates its performance to identify potential fraudulent activities.
+A logistic regression model that flags fraudulent credit card transactions. The main challenge is that fraud is very rare: in this data there are 578 normal transactions for every fraudulent one.
 
-## Dataset
-The dataset consists of the following features:
-- **Time**: Seconds elapsed between this transaction and the first transaction in the dataset.
-- **V1, V2, ..., V28**: Principal components obtained using PCA to protect confidentiality.
-- **Amount**: Transaction amount.
-- **Class**: The target variable (0 = Legitimate, 1 = Fraudulent).
+Built with Python, pandas and scikit-learn in a Jupyter notebook.
 
-### Key Statistics
-- **Legitimate Transactions**: 284,315
-- **Fraudulent Transactions**: 492
-- **Imbalance Ratio**: ~578:1
+## The data
 
-## Project Workflow
-1. **Data Preprocessing**
-   - Separate legitimate and fraudulent transactions.
-   - Resample the data to handle class imbalance (e.g., undersampling legitimate transactions).
-   - Scale features for better performance of the logistic regression model.
+The notebook uses the public credit card fraud dataset (European cardholders, `creditcard.csv`):
 
-2. **Modeling**
-   - Split the data into training and testing sets (80% training, 20% testing).
-   - Train a logistic regression model to classify transactions.
-   - Evaluate the model using appropriate metrics.
+- **284,807 transactions**: 284,315 normal and 492 fraudulent
+- **Time**: seconds since the first transaction
+- **V1 to V28**: features already anonymised with PCA
+- **Amount**: transaction amount
+- **Class**: 0 = normal, 1 = fraud
 
-3. **Evaluation Metrics**
-   - Accuracy
-   - Precision
-   - Recall
-   - F1-Score
-   - ROC-AUC
+There are no missing values.
+
+## What the notebook does
+
+1. **Explores the data.** Compares normal and fraudulent transactions. For example, the average fraudulent amount (about 122) is higher than the average normal one (about 88).
+2. **Balances the classes by undersampling.** A model trained on the raw data could score 99.8% accuracy just by calling everything "normal". So the notebook takes a random sample of 492 normal transactions and combines it with all 492 frauds, giving a 50/50 dataset of 984 rows.
+3. **Splits the data** 80/20 into training and test sets, stratified so both keep the 50/50 balance.
+4. **Trains a logistic regression model.**
+5. **Evaluates it** with accuracy and an ROC curve.
 
 ## Results
-- **Training Accuracy**: 94.92%
-- **Testing Accuracy**: 92.39%
 
-While the model achieves high accuracy, additional metrics such as precision and recall provide better insights into its performance given the dataset's imbalance.
+| Set | Accuracy |
+| --- | --- |
+| Training | 94.92% |
+| Test | 92.39% |
 
-## Visualization
-Key visualizations include:
-- **Class Distribution**: Highlighting the imbalance between legitimate and fraudulent transactions.
-- **ROC Curve**: Showing the trade-off between true positive and false positive rates.
+Because the test set is balanced, 92.39% means the model is genuinely telling fraud and normal apart, and not just guessing the majority class.
 
-## Future Work
-- Implement advanced resampling techniques like SMOTE.
-- Explore other machine learning algorithms such as Random Forest, XGBoost, or LightGBM.
-- Use hyperparameter tuning to improve model performance.
-- Add feature importance analysis to understand which variables are most predictive of fraud.
+## Ideas to improve it
 
-## How to Use
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/shashank274/CreditCard_Fraud_Detection.git
-## Install the required Libraries:
-   ```bash
-   pip install -r requirements.txt
+- Report precision, recall and F1 as well as accuracy, since missing a fraud costs more than a false alarm
+- Scale `Time` and `Amount` before training
+- Try SMOTE instead of undersampling, so fewer normal transactions are thrown away
+- Compare with tree models such as Random Forest or XGBoost
 
+## Run it
 
+```bash
+git clone https://github.com/shashank274/CreditCard_Fraud_Detection.git
+cd CreditCard_Fraud_Detection
+pip install -r requirements.txt
+```
 
+Download `creditcard.csv` (the Kaggle "Credit Card Fraud Detection" dataset), put it in this folder, then open `model.ipynb` in Jupyter.
 
+---
+
+More of my work: [portfolio-pied-gamma-88.vercel.app](https://portfolio-pied-gamma-88.vercel.app)
