@@ -52,4 +52,4 @@ Download `creditcard.csv` (the Kaggle "Credit Card Fraud Detection" dataset), pu
 
 ---
 
-More of my work: [portfolio-pied-gamma-88.vercel.app](https://portfolio-pied-gamma-88.vercel.app)
+More of my work: [shashank-k.vercel.app](https://shashank-k.vercel.app)
